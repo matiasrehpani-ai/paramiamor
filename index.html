@@ -1,1082 +1,660 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Mi Niña ♡</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<style>
-  :root {
-    --cream: #f5f0e8;
-    --warm: #e8ddd0;
-    --paper: #faf7f2;
-    --ink: #2c2416;
-    --faded: #8a7a6a;
-    --rose: #c4756a;
-    --dusty-rose: #d4948a;
-    --gold: #b8860b;
-    --tape: rgba(255,220,150,0.5);
-    --shadow: rgba(44,36,22,0.15);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--cream);
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--ink);
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 0.9rem 1rem;
-    background: rgba(245,240,232,0.9);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(184,134,11,0.18);
-    flex-wrap: wrap;
-  }
-  nav a {
-    font-family: 'Caveat', cursive;
-    font-size: 1rem;
-    color: var(--faded);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  nav a:hover { color: var(--rose); }
-
-  /* ═══ PORTADA ═══ */
-  #portada {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 7rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-    background: var(--cream);
-  }
-
-  #portada::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 20% 50%, rgba(196,117,106,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 30%, rgba(184,134,11,0.05) 0%, transparent 50%);
-  }
-
-  .float-el {
-    position: absolute;
-    font-family: 'Caveat', cursive;
-    color: var(--faded);
-    opacity: 0.3;
-    pointer-events: none;
-    font-size: 1rem;
-  }
-
-  .portada-card {
-    background: var(--paper);
-    border: 1px solid rgba(184,134,11,0.22);
-    padding: 3.5rem 4rem;
-    max-width: 560px;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    box-shadow: 5px 7px 35px var(--shadow), 0 0 0 8px rgba(245,240,232,0.9), 0 0 0 9px rgba(184,134,11,0.1);
-    animation: fadeUp 1s ease both;
-  }
-  .portada-card::before {
-    content: '';
-    position: absolute;
-    width: 70px; height: 22px;
-    background: var(--tape);
-    border: 1px solid rgba(255,200,100,0.3);
-    top: -11px; left: 40px;
-    transform: rotate(-2deg);
-  }
-  .portada-card::after {
-    content: '';
-    position: absolute;
-    width: 70px; height: 22px;
-    background: var(--tape);
-    border: 1px solid rgba(255,200,100,0.3);
-    bottom: -11px; right: 40px;
-    transform: rotate(1.5deg);
-  }
-
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(30px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes pulse {
-    0%,100% { opacity:0.7; transform:scale(1); }
-    50%      { opacity:1;   transform:scale(1.06); }
-  }
-
-  .heart-deco {
-    font-size: 1.4rem;
-    letter-spacing: 0.5rem;
-    color: var(--dusty-rose);
-    margin-bottom: 1rem;
-    animation: pulse 2.2s ease-in-out infinite;
-  }
-
-  .portada-card h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--ink);
-  }
-  .portada-card h1 em { font-style: italic; color: var(--rose); }
-
-  .portada-sub {
-    font-family: 'Caveat', cursive;
-    font-size: 1.2rem;
-    color: var(--faded);
-    margin: 1rem 0 2rem;
-  }
-
-  .counters-wrap {
-    display: flex;
-    gap: 1.2rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 1.5rem 0;
-  }
-
-  .counter-box {
-    background: var(--cream);
-    border: 1px solid rgba(184,134,11,0.18);
-    padding: 1rem 1.4rem;
-    text-align: center;
-    min-width: 115px;
-  }
-  .counter-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.1rem;
-    color: var(--rose);
-    display: block;
-    line-height: 1;
-  }
-  .counter-label {
-    font-family: 'Caveat', cursive;
-    font-size: 0.82rem;
-    color: var(--faded);
-    display: block;
-    margin-top: 0.25rem;
-    line-height: 1.3;
-  }
-
-  .enter-btn {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.8rem 2.5rem;
-    background: var(--rose);
-    color: white;
-    font-family: 'Caveat', cursive;
-    font-size: 1.1rem;
-    text-decoration: none;
-    letter-spacing: 0.05em;
-    transition: all 0.3s;
-    box-shadow: 3px 3px 0 rgba(196,117,106,0.3);
-  }
-  .enter-btn:hover {
-    background: var(--ink);
-    transform: translate(-2px,-2px);
-    box-shadow: 5px 5px 0 rgba(196,117,106,0.3);
-  }
-
-  /* ═══ SHARED SECTION ═══ */
-  .sec-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-  }
-  .section-header {
-    text-align: center;
-    margin-bottom: 3.5rem;
-  }
-  .section-tag {
-    font-family: 'Caveat', cursive;
-    font-size: 1rem;
-    color: var(--rose);
-    letter-spacing: 0.1em;
-    display: block;
-    margin-bottom: 0.4rem;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 400;
-    color: var(--ink);
-  }
-  .section-divider {
-    width: 55px; height: 1px;
-    background: var(--gold);
-    margin: 0.8rem auto 0;
-    opacity: 0.5;
-  }
-
-  /* ═══ TIMELINE ═══ */
-  #historia { background: var(--paper); }
-
-  .timeline { position: relative; padding: 2rem 0; }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%; top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, var(--gold), var(--dusty-rose), var(--gold), transparent);
-    transform: translateX(-50%);
-  }
-
-  .tl-item {
-    display: flex;
-    gap: 2.5rem;
-    margin-bottom: 3rem;
-    align-items: flex-start;
-    opacity: 0;
-    transform: translateY(25px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  .tl-item.vis { opacity:1; transform:translateY(0); }
-  .tl-item:nth-child(even) { flex-direction: row-reverse; }
-
-  .tl-content {
-    flex: 1;
-    background: var(--paper);
-    border: 1px solid rgba(184,134,11,0.18);
-    padding: 1.4rem 1.8rem;
-    position: relative;
-    box-shadow: 3px 3px 14px var(--shadow);
-  }
-  .tl-content::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    width: 55px; height: 17px;
-    background: var(--tape);
-    border: 1px solid rgba(255,200,100,0.3);
-  }
-  .tl-item:nth-child(odd)  .tl-content::before { right: -27px; transform: rotate(3deg); }
-  .tl-item:nth-child(even) .tl-content::before { left: -27px;  transform: rotate(-2deg); }
-
-  .tl-date {
-    font-family: 'Caveat', cursive;
-    font-size: 0.95rem;
-    color: var(--rose);
-    margin-bottom: 0.4rem;
-  }
-  .tl-content h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 400;
-    margin-bottom: 0.4rem;
-  }
-  .tl-content p {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--faded);
-  }
-
-  .tl-dot {
-    flex: 0 0 auto;
-    width: 14px; height: 14px;
-    background: var(--rose);
-    border: 3px solid var(--cream);
-    border-radius: 50%;
-    margin-top: 14px;
-    box-shadow: 0 0 0 2px var(--dusty-rose);
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ═══ MAPA ═══ */
-  #mapa-section { background: var(--cream); }
-  .map-frame {
-    padding: 12px;
-    background: var(--paper);
-    border: 1px solid rgba(184,134,11,0.18);
-    box-shadow: 5px 5px 28px var(--shadow);
-    position: relative;
-  }
-  .map-frame::before {
-    content: '';
-    position: absolute;
-    top: -11px; left: 30%;
-    width: 80px; height: 22px;
-    background: var(--tape);
-    transform: rotate(-1deg);
-  }
-  .map-frame::after {
-    content: '';
-    position: absolute;
-    bottom: -11px; right: 25%;
-    width: 80px; height: 22px;
-    background: var(--tape);
-    transform: rotate(2deg);
-  }
-  #map { height: 500px; }
-
-  /* ═══ RAZONES ═══ */
-  #razones { background: var(--paper); }
-  .razones-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 1.8rem;
-  }
-
-  .razon-card {
-    height: 195px;
-    cursor: pointer;
-    perspective: 700px;
-    transition: transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275);
-  }
-  .razon-card:nth-child(odd):hover  { transform: rotate(-1.5deg) translateY(-5px); }
-  .razon-card:nth-child(even):hover { transform: rotate(1.5deg)  translateY(-5px); }
-
-  .razon-inner {
-    width:100%; height:100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.6s cubic-bezier(0.175,0.885,0.32,1.275);
-  }
-  .razon-card.flipped .razon-inner { transform: rotateY(180deg); }
-
-  .razon-front, .razon-back {
-    position: absolute; inset: 0;
-    backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1.3rem;
-    border: 1px solid rgba(184,134,11,0.15);
-  }
-  .razon-front { background: var(--cream); }
-  .razon-back  { background: var(--rose); transform: rotateY(180deg); }
-
-  .razon-num  { font-family:'Playfair Display',serif; font-size:2.2rem; color:var(--dusty-rose); line-height:1; }
-  .razon-icon { font-size:1.8rem; margin-bottom:0.3rem; }
-  .razon-text { font-family:'Playfair Display',serif; font-size:1rem; color:var(--ink); font-style:italic; text-align:center; }
-  .razon-back .razon-text { color:white; font-size:0.9rem; line-height:1.5; }
-  .flip-hint { font-family:'Caveat',cursive; font-size:0.75rem; color:var(--faded); margin-top:0.6rem; opacity:0.6; }
-
-  /* ═══ ÁLBUM ═══ */
-  #album { background: var(--cream); }
-  .album-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 2.5rem;
-  }
-
-  .polaroid {
-    background: white;
-    padding: 11px 11px 38px;
-    box-shadow: 3px 3px 14px var(--shadow);
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-  .polaroid:nth-child(1) { transform: rotate(-2deg); }
-  .polaroid:nth-child(2) { transform: rotate(1.5deg); }
-  .polaroid:nth-child(3) { transform: rotate(-1deg); }
-  .polaroid:nth-child(4) { transform: rotate(2deg); }
-  .polaroid:nth-child(5) { transform: rotate(-1.5deg); }
-  .polaroid:nth-child(6) { transform: rotate(1deg); }
-  .polaroid:hover { transform: rotate(0deg) scale(1.04) !important; z-index: 10; }
-
-  .tape-strip {
-    position: absolute;
-    width: 48px; height: 17px;
-    background: var(--tape);
-    top: -8px; left: 50%;
-    transform: translateX(-50%) rotate(-1deg);
-  }
-
-  .polaroid img {
-    width:100%; aspect-ratio:1; object-fit:cover; display:block; background:var(--warm);
-  }
-  .polaroid-placeholder {
-    width:100%; aspect-ratio:1;
-    background: linear-gradient(135deg,var(--warm),var(--cream));
-    display:flex; align-items:center; justify-content:center;
-    font-size:2.5rem; color:var(--dusty-rose);
-  }
-  .polaroid-caption {
-    font-family:'Caveat',cursive;
-    font-size:0.95rem;
-    color:var(--faded);
-    text-align:center;
-    padding-top:7px;
-    line-height:1.3;
-  }
-
-  .album-note {
-    grid-column: 1/-1;
-    text-align:center;
-    padding:1.8rem;
-    border:2px dashed rgba(184,134,11,0.2);
-    color:var(--faded);
-    font-family:'Caveat',cursive;
-    font-size:1.05rem;
-  }
-
-  /* ═══ CARTA ═══ */
-  #carta-section { background: var(--paper); }
-  .carta-wrap { max-width:660px; margin:0 auto; }
-  .carta-paper {
-    background: #fffef9;
-    border: 1px solid rgba(184,134,11,0.13);
-    padding: 3.5rem 4rem;
-    box-shadow: 4px 4px 28px var(--shadow);
-    position: relative;
-    background-image: repeating-linear-gradient(
-      transparent, transparent 31px,
-      rgba(184,134,11,0.07) 31px, rgba(184,134,11,0.07) 32px
-    );
-    background-position: 0 3.5rem;
-    line-height: 32px;
-  }
-  .carta-paper::before {
-    content:'';
-    position:absolute;
-    top:-12px; left:35%;
-    width:90px; height:24px;
-    background:var(--tape);
-    transform:rotate(-1.5deg);
-  }
-  .carta-paper::after {
-    content:'';
-    position:absolute;
-    left:70px; top:0; bottom:0;
-    width:1px;
-    background:rgba(196,117,106,0.18);
-  }
-  .carta-saludo {
-    font-family:'Caveat',cursive;
-    font-size:1.6rem;
-    color:var(--rose);
-    margin-bottom:1.5rem;
-    padding-left:85px;
-  }
-  .carta-body {
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.1rem;
-    line-height:2;
-    color:var(--ink);
-    padding-left:85px;
-    white-space:pre-line;
-    min-height:180px;
-  }
-  .carta-placeholder {
-    font-family:'Caveat',cursive;
-    font-size:1.05rem;
-    color:var(--faded);
-    opacity:0.6;
-    font-style:italic;
-  }
-  .carta-firma {
-    font-family:'Caveat',cursive;
-    font-size:1.4rem;
-    color:var(--rose);
-    text-align:right;
-    margin-top:2rem;
-    padding-right:0.5rem;
-  }
-
-  /* ═══ RULETA ═══ */
-  #ruleta-section { background: var(--cream); }
-  .ruleta-wrap {
-    display:flex; flex-direction:column;
-    align-items:center; gap:2rem;
-  }
-  .wheel-container {
-    position:relative;
-    width:340px; height:340px;
-  }
-  #wheel-canvas {
-    border-radius:50%;
-    box-shadow:4px 4px 25px var(--shadow), 0 0 0 6px var(--paper), 0 0 0 8px rgba(184,134,11,0.2);
-    cursor:pointer;
-    display:block;
-  }
-  .wheel-pointer {
-    position:absolute;
-    top:50%; right:-18px;
-    transform:translateY(-50%);
-    width:0; height:0;
-    border-top:16px solid transparent;
-    border-bottom:16px solid transparent;
-    border-right:28px solid var(--rose);
-    filter:drop-shadow(2px 0 4px rgba(0,0,0,0.18));
-  }
-  .spin-btn {
-    padding:0.85rem 3rem;
-    background:var(--rose);
-    color:white;
-    border:none;
-    font-family:'Caveat',cursive;
-    font-size:1.3rem;
-    cursor:pointer;
-    letter-spacing:0.05em;
-    transition:all 0.3s;
-    box-shadow:3px 3px 0 rgba(196,117,106,0.35);
-  }
-  .spin-btn:hover:not(:disabled) {
-    background:var(--ink);
-    transform:translate(-2px,-2px);
-    box-shadow:5px 5px 0 rgba(196,117,106,0.35);
-  }
-  .spin-btn:disabled { opacity:0.5; cursor:not-allowed; }
-
-  .result-display {
-    font-family:'Playfair Display',serif;
-    font-size:1.55rem;
-    font-style:italic;
-    color:var(--rose);
-    text-align:center;
-    padding:1rem 2rem;
-    background:var(--paper);
-    border:1px solid rgba(184,134,11,0.18);
-    box-shadow:3px 3px 10px var(--shadow);
-    max-width:400px; width:100%;
-    display:none;
-  }
-
-  /* ═══ FOOTER ═══ */
-  footer {
-    text-align:center;
-    padding:3rem 2rem;
-    background:var(--ink);
-    color:var(--warm);
-  }
-  footer .fheart {
-    font-size:1.5rem; display:block;
-    margin-bottom:0.5rem; color:var(--rose);
-    animation:pulse 2.2s ease-in-out infinite;
-  }
-  footer p { font-family:'Caveat',cursive; font-size:1.1rem; opacity:0.7; }
-
-  /* ═══ MODAL ═══ */
-  .modal-overlay {
-    position:fixed; inset:0;
-    background:rgba(44,36,22,0.85);
-    z-index:1000;
-    display:none;
-    align-items:center; justify-content:center;
-    backdrop-filter:blur(4px);
-  }
-  .modal-overlay.open { display:flex; }
-  .modal-img { max-width:90vw; max-height:85vh; object-fit:contain; box-shadow:0 0 60px rgba(0,0,0,0.5); }
-  .modal-close {
-    position:absolute; top:1.5rem; right:1.5rem;
-    background:none; border:none; color:white;
-    font-size:2rem; cursor:pointer; font-family:'Caveat',cursive;
-  }
-
-  /* ═══ RESPONSIVE ═══ */
-  @media (max-width:680px) {
-    .timeline::before { left:18px; }
-    .tl-item, .tl-item:nth-child(even) {
-      flex-direction:column !important;
-      padding-left:45px;
-      position:relative;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para mi niña 🤍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --cream-dark: #ede5d4;
+      --brown: #6b4c35;
+      --brown-light: #9b7355;
+      --rose: #c97d7d;
+      --rose-light: #e8b4b4;
+      --rose-pale: #f5e0e0;
+      --ink: #2c1f14;
+      --ink-light: #5a3e2b;
+      --gold: #c4a862;
+      --gold-light: #e8d5a0;
+      --shadow: rgba(44,31,20,0.15);
     }
-    .tl-dot { position:absolute; left:10px; margin-top:14px; }
-    .tl-content::before { display:none; }
-    .portada-card { padding:2rem 1.4rem; }
-    .carta-paper { padding:2rem 1.2rem; }
-    .carta-body, .carta-saludo { padding-left:15px; }
-    .carta-paper::after { display:none; }
-    nav { gap:0.7rem; }
-  }
-</style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23c97d7d' opacity='0.7'/%3E%3C/svg%3E") 10 10, auto;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.6;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--gold-light);
+      flex-wrap: wrap;
+    }
+    nav a {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--brown);
+      text-decoration: none;
+      padding: 4px 10px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    nav a:hover { background: var(--rose-pale); color: var(--rose); }
+
+    section { min-height: 100vh; padding: 100px 20px 60px; position: relative; }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--brown);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .section-title span { font-style: italic; color: var(--rose); }
+    .section-subtitle {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--brown-light);
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    #hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-top: 80px;
+      background: radial-gradient(ellipse at 50% 0%, #f0e6d8 0%, var(--cream) 70%);
+      min-height: 100vh;
+    }
+    .hero-stamp {
+      font-family: 'Caveat', cursive;
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      color: var(--rose);
+      text-transform: uppercase;
+      border: 2px solid var(--rose-light);
+      padding: 4px 16px;
+      border-radius: 3px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      color: var(--brown);
+      line-height: 1.05;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 1s 0.6s forwards;
+    }
+    .hero-title em { font-style: italic; color: var(--rose); display: block; }
+    .hero-sub {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: var(--brown-light);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s 0.9s forwards;
+    }
+    .counters-wrap {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+    }
+    .counter-card {
+      background: white;
+      border: 1px solid var(--gold-light);
+      border-radius: 4px;
+      padding: 20px 28px;
+      box-shadow: 3px 5px 18px var(--shadow);
+      position: relative;
+      transform: rotate(-1.5deg);
+    }
+    .counter-card:nth-child(2) { transform: rotate(1.2deg); }
+    .counter-card .label { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--brown-light); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+    .counter-card .days { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--rose); font-weight: 700; line-height: 1; }
+    .counter-card .days-label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); margin-top: 2px; }
+    .hero-cta {
+      display: inline-block;
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: white;
+      background: var(--rose);
+      padding: 12px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(201,125,125,0.4);
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeUp 1s 1.5s forwards;
+    }
+    .hero-cta:hover { background: var(--brown); transform: translateY(-2px); }
+    .floating-hearts { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .heart { position: absolute; font-size: 1.2rem; opacity: 0; animation: floatHeart linear infinite; }
+
+    @keyframes floatHeart {
+      0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #historia { background: var(--cream-dark); }
+    .timeline { max-width: 700px; margin: 0 auto; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold-light), var(--rose-light), var(--gold-light));
+    }
+    .tl-item {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.6s;
+      align-items: flex-start;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+    .tl-dot {
+      width: 64px; min-width: 64px; height: 64px;
+      background: white;
+      border: 3px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      box-shadow: 0 4px 16px var(--shadow);
+      position: relative;
+      z-index: 1;
+    }
+    .tl-card {
+      background: white;
+      border-radius: 4px;
+      padding: 18px 22px;
+      box-shadow: 3px 5px 18px var(--shadow);
+      flex: 1;
+      border-left: 4px solid var(--rose-light);
+    }
+    .tl-card .date { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--rose); margin-bottom: 4px; letter-spacing: 1px; }
+    .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--brown); margin-bottom: 6px; }
+    .tl-card p { font-size: 0.9rem; color: var(--ink-light); line-height: 1.6; }
+
+    #mapa { background: var(--cream); }
+    #map { width: 100%; max-width: 900px; height: 500px; margin: 0 auto; border-radius: 4px; box-shadow: 6px 10px 40px var(--shadow); border: 8px solid white; display: block; }
+
+    #razones { background: var(--cream-dark); }
+    .reasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
+    .reason-card { background: white; border-radius: 2px; padding: 24px 20px 20px; box-shadow: 4px 6px 20px var(--shadow); cursor: pointer; perspective: 600px; min-height: 200px; }
+    .reason-inner { position: relative; width: 100%; height: 100%; min-height: 160px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reason-card:hover .reason-inner, .reason-card.flipped .reason-inner { transform: rotateY(180deg); }
+    .reason-front, .reason-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    .reason-back { transform: rotateY(180deg); }
+    .reason-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--gold-light); font-weight: 700; line-height: 1; }
+    .reason-hint { font-family: 'Caveat', cursive; font-size: 0.85rem; color: var(--brown-light); margin-top: 8px; }
+    .reason-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--brown); font-style: italic; line-height: 1.5; }
+    .reason-emoji { font-size: 2rem; margin-bottom: 10px; }
+
+    #album { background: var(--cream); }
+    .polaroid-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; max-width: 900px; margin: 0 auto; }
+    .album-placeholder { max-width: 800px; margin: 0 auto; background: white; border: 2px dashed var(--gold-light); border-radius: 8px; padding: 60px 40px; text-align: center; }
+    .polaroid { background: white; padding: 14px 14px 50px; box-shadow: 4px 6px 24px var(--shadow); width: 200px; transition: transform 0.3s; cursor: pointer; }
+    .polaroid:nth-child(odd) { transform: rotate(-2.5deg); }
+    .polaroid:nth-child(even) { transform: rotate(2deg); }
+    .polaroid:hover { transform: rotate(0deg) scale(1.05) !important; z-index: 10; }
+    .polaroid img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--cream-dark); }
+    .polaroid .caption { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--brown); text-align: center; margin-top: 10px; line-height: 1.3; }
+
+    #carta { background: var(--cream-dark); }
+    .letter-wrap { max-width: 680px; margin: 0 auto; background: #fffdf5; border-radius: 2px; padding: 56px 60px; box-shadow: 6px 10px 40px var(--shadow); position: relative; border: 1px solid var(--gold-light); min-height: 400px; }
+    .letter-wrap::before { content: ''; position: absolute; top: 0; bottom: 0; left: 60px; width: 1px; background: rgba(201,125,125,0.3); }
+    .letter-lines { position: absolute; inset: 56px 0; background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(196,168,98,0.15) 31px, rgba(196,168,98,0.15) 32px); pointer-events: none; }
+    .letter-content { font-family: 'Caveat', cursive; font-size: 1.3rem; color: var(--ink); line-height: 2.0; position: relative; white-space: pre-wrap; min-height: 200px; }
+    .letter-date { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); text-align: right; margin-bottom: 32px; }
+    .letter-signature { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; color: var(--rose); margin-top: 32px; }
+
+    #ruleta { background: var(--cream); }
+    .ruleta-wrap { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+    .wheel-container { position: relative; width: 320px; height: 320px; }
+    #wheel-canvas { width: 320px; height: 320px; border-radius: 50%; box-shadow: 0 8px 40px var(--shadow); cursor: pointer; }
+    .wheel-pointer { position: absolute; top: 50%; right: -20px; transform: translateY(-50%); font-size: 2rem; z-index: 10; }
+    .spin-btn { font-family: 'Caveat', cursive; font-size: 1.4rem; color: white; background: var(--rose); border: none; padding: 14px 40px; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 20px rgba(201,125,125,0.4); transition: all 0.3s; }
+    .spin-btn:hover:not(:disabled) { background: var(--brown); transform: translateY(-2px); }
+    .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .result-card { background: white; border-radius: 4px; padding: 24px 36px; box-shadow: 4px 6px 20px var(--shadow); text-align: center; min-width: 280px; display: none; }
+    .result-card.show { display: block; animation: fadeUp 0.5s forwards; }
+    .result-card .result-emoji { font-size: 2.5rem; margin-bottom: 8px; }
+    .result-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); margin-bottom: 4px; }
+    .result-card p { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); }
+
+    footer { text-align: center; padding: 48px 20px; background: var(--brown); color: var(--gold-light); }
+    footer p { font-family: 'Caveat', cursive; font-size: 1.2rem; margin-bottom: 8px; }
+    footer .heart { color: var(--rose-light); font-size: 1.5rem; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(44,31,20,0.9); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border: 8px solid white; box-shadow: 0 20px 80px rgba(0,0,0,0.5); }
+    .lightbox-close { position: absolute; top: 20px; right: 24px; font-size: 2rem; color: white; cursor: pointer; font-family: 'Caveat', cursive; }
+
+    @media (max-width: 600px) {
+      .timeline::before { left: 24px; }
+      .tl-dot { width: 48px; min-width: 48px; height: 48px; font-size: 1.2rem; }
+      .letter-wrap { padding: 40px 28px; }
+      .letter-wrap::before { left: 28px; }
+      #map { height: 350px; }
+    }
+  </style>
 </head>
 <body>
 
 <nav>
-  <a href="#portada">♡ Inicio</a>
-  <a href="#historia">Historia</a>
-  <a href="#mapa-section">Mapa</a>
-  <a href="#razones">Te amo porque</a>
-  <a href="#album">Álbum</a>
-  <a href="#carta-section">Carta</a>
-  <a href="#ruleta-section">Planes</a>
+  <a href="#hero">🏠 Inicio</a>
+  <a href="#historia">📅 Historia</a>
+  <a href="#mapa">🗺️ Mapa</a>
+  <a href="#razones">💌 Razones</a>
+  <a href="#album">📸 Álbum</a>
+  <a href="#carta">✉️ Carta</a>
+  <a href="#ruleta">🎡 Planes</a>
 </nav>
 
-<!-- ══ PORTADA ══ -->
-<section id="portada">
-  <span class="float-el" style="top:15%;left:5%;transform:rotate(-8deg)">amor ♡</span>
-  <span class="float-el" style="top:70%;left:3%;transform:rotate(5deg)">mi vida</span>
-  <span class="float-el" style="top:20%;right:4%;transform:rotate(6deg)">princesa</span>
-  <span class="float-el" style="top:75%;right:6%;transform:rotate(-4deg)">tamalita ♡</span>
-  <span class="float-el" style="top:45%;left:8%;transform:rotate(3deg)">preciosa</span>
-  <span class="float-el" style="top:40%;right:7%;transform:rotate(-6deg)">mi amor</span>
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+  <img id="lightbox-img" src="" alt="" />
+</div>
 
-  <div class="portada-card">
-    <div class="heart-deco">♡ ♡ ♡</div>
-    <h1>Para <em>María Clara,</em><br>mi tamalita</h1>
-    <p class="portada-sub">Un rinconcito tuyo, hecho con todo mi amor</p>
-
-    <div class="counters-wrap">
-      <div class="counter-box">
-        <span class="counter-number" id="days1">—</span>
-        <span class="counter-label">días desde el primer "sí"<br><small style="font-size:0.7rem;opacity:0.7">31 ene 2024</small></span>
-      </div>
-      <div class="counter-box">
-        <span class="counter-number" id="days2">—</span>
-        <span class="counter-label">días desde que volvimos<br><small style="font-size:0.7rem;opacity:0.7">6 ago 2025</small></span>
-      </div>
+<section id="hero">
+  <div class="floating-hearts" id="floatingHearts"></div>
+  <div class="hero-stamp">Con todo mi amor · 2024 — forever</div>
+  <h1 class="hero-title">Para mi<br><em>tamalita</em></h1>
+  <p class="hero-sub">Hecho con el corazón, para la dueña de él ✨</p>
+  <div class="counters-wrap">
+    <div class="counter-card">
+      <div class="label">Juntos desde siempre</div>
+      <div class="days" id="days1">—</div>
+      <div class="days-label">días desde el 31 ene 2024</div>
     </div>
-
-    <a href="#historia" class="enter-btn">Explorar nuestro mundo ↓</a>
+    <div class="counter-card">
+      <div class="label">Esta etapa juntos</div>
+      <div class="days" id="days2">—</div>
+      <div class="days-label">días desde el 6 ago 2025</div>
+    </div>
   </div>
+  <a href="#historia" class="hero-cta">Nuestra historia →</a>
 </section>
 
-<!-- ══ HISTORIA ══ -->
 <section id="historia">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ nuestra historia ~</span>
-      <h2 class="section-title">Los momentos que nos hicieron</h2>
-      <div class="section-divider"></div>
+  <h2 class="section-title">Nuestra <span>historia</span></h2>
+  <p class="section-subtitle">cada momento que nos trajo hasta aquí</p>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot">💑</div>
+      <div class="tl-card">
+        <div class="date">31 de enero, 2024</div>
+        <h3>El inicio de todo</h3>
+        <p>El día que decidimos estar juntos para siempre, oficialmente comenzaba nuestra historia de amor.</p>
+      </div>
     </div>
-    <div class="timeline">
 
-      <div class="tl-item">
-        <div class="tl-content">
-          <div class="tl-date">31 de enero, 2024</div>
-          <h3>El inicio de todo 💍</h3>
-          <p>El día que decidimos estar juntos para siempre, oficialmente comenzaba nuestra historia de amor.</p>
-        </div>
-        <div class="tl-dot"></div>
-        <div style="flex:1"></div>
+    <div class="tl-item">
+      <div class="tl-dot">🎵</div>
+      <div class="tl-card">
+        <div class="date">2024 — Quito</div>
+        <h3>Nuestro primer concierto</h3>
+        <p>Juntos en Morat escuchando y disfrutando cada canción, pasando una noche inolvidable con hermosa música.</p>
       </div>
-
-      <div class="tl-item">
-        <div style="flex:1"></div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <div class="tl-date">2024 — Quito</div>
-          <h3>Nuestro primer concierto 🎵</h3>
-          <p>Juntos en Morat escuchando y disfrutando cada canción, pasando una noche inolvidable con hermosa música.</p>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-content">
-          <div class="tl-date">Diciembre 2024</div>
-          <h3>Europa ✈️</h3>
-          <p>Madrid, Valencia, Barcelona, Montabaur, París, Roma... Seis ciudades, infinitas memorias. Caminar de tu mano por esos lugares fue un sueño que no quería que terminara.</p>
-        </div>
-        <div class="tl-dot"></div>
-        <div style="flex:1"></div>
-      </div>
-
-      <div class="tl-item">
-        <div style="flex:1"></div>
-        <div class="tl-dot"></div>
-        <div class="tl-content">
-          <div class="tl-date">Año Nuevo 2026 — Esmeraldas</div>
-          <h3>Primera playa juntos 🌊</h3>
-          <p>El mar, la arena, tú. Empezamos el año nuevo juntos y yo no pedía nada más. Fue perfecto.</p>
-        </div>
-      </div>
-
-      <div class="tl-item">
-        <div class="tl-content" style="border-color:rgba(196,117,106,0.3);">
-          <div class="tl-date">Febrero 2025</div>
-          <h3>La tormenta 🌧️</h3>
-          <p>Hubo un momento difícil. Pero sé — y lo supe siempre — que algunas historias no terminan, solo toman un descanso.</p>
-        </div>
-        <div class="tl-dot" style="background:var(--faded);box-shadow:0 0 0 2px var(--faded);"></div>
-        <div style="flex:1"></div>
-      </div>
-
-      <div class="tl-item">
-        <div style="flex:1"></div>
-        <div class="tl-dot" style="background:var(--gold);box-shadow:0 0 0 2px var(--gold);"></div>
-        <div class="tl-content" style="border-color:rgba(184,134,11,0.35);">
-          <div class="tl-date" style="color:var(--gold);">6 de agosto, 2025 ✨</div>
-          <h3>El regreso 🌅</h3>
-          <p>Porque esta historia no merecía acabarse así, porque lo nuestro apenas empezaba, volvimos para quedarnos para siempre.</p>
-        </div>
-      </div>
-
     </div>
+
+    <div class="tl-item">
+      <div class="tl-dot">✈️</div>
+      <div class="tl-card">
+        <div class="date">Diciembre, 2024</div>
+        <h3>Europa juntos</h3>
+        <p>Madrid, Valencia, Barcelona, Montabaur, París y Roma. Seis ciudades, una aventura, los dos. Un diciembre que nunca vamos a olvidar.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot">🌊</div>
+      <div class="tl-card">
+        <div class="date">Año Nuevo, 2026</div>
+        <h3>Primera playa juntos</h3>
+        <p>Esmeraldas nos vio despedir un año y empezar otro. El mar y tú — nada más necesitaba.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot">🌧️</div>
+      <div class="tl-card" style="border-left-color: var(--gold-light);">
+        <div class="date" style="color: var(--gold);">Febrero, 2025</div>
+        <h3>Una pausa</h3>
+        <p>A veces los caminos se separan para que uno pueda ver con claridad lo que de verdad importa. Esta historia tenía más páginas por escribir.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot">🌅</div>
+      <div class="tl-card" style="border-left-color: var(--gold);">
+        <div class="date" style="color: var(--gold);">6 de agosto, 2025</div>
+        <h3>El regreso</h3>
+        <p>Porque esta historia no merecía acabarse así, porque lo nuestro apenas empezaba, volvimos para quedarnos para siempre.</p>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot">🤍</div>
+      <div class="tl-card">
+        <div class="date">Hoy</div>
+        <h3>Aquí, contigo</h3>
+        <p>Un año y ocho meses de aventuras, risas, y crecer juntos. Y apenas estamos empezando.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ══ MAPA ══ -->
-<section id="mapa-section">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ nuestros lugares ~</span>
-      <h2 class="section-title">El mundo que hemos recorrido</h2>
-      <div class="section-divider"></div>
-    </div>
-    <div class="map-frame">
-      <div id="map"></div>
-    </div>
-    <p style="text-align:center;font-family:'Caveat',cursive;color:var(--faded);margin-top:1.4rem;font-size:1rem;">
-      Haz click en cada pin para ver el recuerdo ♡
-    </p>
-  </div>
+<section id="mapa">
+  <h2 class="section-title">Nuestros <span>lugares</span></h2>
+  <p class="section-subtitle">cada pin es un recuerdo contigo</p>
+  <div id="map"></div>
 </section>
 
-<!-- ══ RAZONES ══ -->
 <section id="razones">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ razones infinitas ~</span>
-      <h2 class="section-title">Por qué te amo</h2>
-      <div class="section-divider"></div>
-      <p style="font-family:'Caveat',cursive;color:var(--faded);margin-top:0.8rem;font-size:0.95rem;">Toca cada tarjeta ♡</p>
-    </div>
-    <div class="razones-grid" id="razones-grid"></div>
-  </div>
+  <h2 class="section-title">Por qué te <span>amo</span></h2>
+  <p class="section-subtitle">toca cada carta para descubrirlo ✨</p>
+  <div class="reasons-grid" id="reasonsGrid"></div>
 </section>
 
-<!-- ══ ÁLBUM ══ -->
 <section id="album">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ momentos guardados ~</span>
-      <h2 class="section-title">Nuestro álbum</h2>
-      <div class="section-divider"></div>
-    </div>
-    <div class="album-grid" id="album-grid"></div>
+  <h2 class="section-title">Nuestro <span>álbum</span></h2>
+  <p class="section-subtitle">momentos guardados para siempre</p>
+  <div class="polaroid-grid" id="polaroidGrid"></div>
+  <div class="album-placeholder" id="albumPlaceholder">
+    <div style="font-size:3rem;margin-bottom:16px;">📷</div>
+    <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--brown);margin-bottom:10px;">Aquí van nuestras fotos</h3>
   </div>
 </section>
 
-<!-- ══ CARTA ══ -->
-<section id="carta-section">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ solo para ti ~</span>
-      <h2 class="section-title">Una carta</h2>
-      <div class="section-divider"></div>
-    </div>
-    <div class="carta-wrap">
-      <div class="carta-paper">
-        <div class="carta-saludo">María Clara, mi amor,</div>
-        <div class="carta-body">
-          <span class="carta-placeholder">[ Tu carta va aquí — cuéntamela cuando estés listo y la agrego con todo el amor del mundo ♡ ]</span>
-        </div>
-        <div class="carta-firma">Con todo mi amor, Matias ♡</div>
-      </div>
-    </div>
+<section id="carta">
+  <h2 class="section-title">Una <span>carta</span> para ti</h2>
+  <p class="section-subtitle">escrita con todo lo que siento</p>
+  <div class="letter-wrap">
+    <div class="letter-lines"></div>
+    <div class="letter-date" id="letterDate"></div>
+    <div class="letter-content" id="letterContent"></div>
+    <div class="letter-signature" id="letterSignature"></div>
   </div>
 </section>
 
-<!-- ══ RULETA ══ -->
-<section id="ruleta-section">
-  <div class="sec-inner">
-    <div class="section-header">
-      <span class="section-tag">~ ¿qué hacemos hoy? ~</span>
-      <h2 class="section-title">La ruleta de planes</h2>
-      <div class="section-divider"></div>
+<section id="ruleta">
+  <h2 class="section-title">Ruleta de <span>planes</span></h2>
+  <p class="section-subtitle">¿sin ideas? gira y el universo decide 🎡</p>
+  <div class="ruleta-wrap">
+    <div class="wheel-container">
+      <canvas id="wheel-canvas" width="320" height="320"></canvas>
+      <div class="wheel-pointer">▶</div>
     </div>
-    <div class="ruleta-wrap">
-      <div class="wheel-container">
-        <canvas id="wheel-canvas" width="340" height="340"></canvas>
-        <div class="wheel-pointer"></div>
-      </div>
-      <button class="spin-btn" id="spin-btn" onclick="spinWheel()">¡Girar! ✨</button>
-      <div class="result-display" id="result-display"></div>
+    <button class="spin-btn" id="spinBtn" onclick="spinWheel()">¡Girar! ✨</button>
+    <div class="result-card" id="resultCard">
+      <div class="result-emoji" id="resultEmoji"></div>
+      <h3 id="resultText"></h3>
+      <p>¡A hacerlo realidad juntos! 💕</p>
     </div>
   </div>
 </section>
 
 <footer>
-  <span class="fheart">♡</span>
-  <p>Hecho con todo el amor del mundo para María Clara</p>
-  <p style="margin-top:0.4rem;font-size:0.9rem;">Tamalita mía — para siempre ♡</p>
+  <p>Hecho con mucho amor para María Clara</p>
+  <p class="heart">♥</p>
+  <p style="font-size:0.9rem;opacity:0.7;margin-top:8px;">Matías · 2026</p>
 </footer>
 
-<div class="modal-overlay" id="modal">
-  <button class="modal-close" onclick="closeModal()">✕</button>
-  <img class="modal-img" id="modal-img" src="" alt="">
-</div>
-
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="photos.js"></script>
+<script src="letter.js"></script>
 <script>
-// ─── COUNTERS ───
-function daysSince(d) {
-  return Math.floor((Date.now() - new Date(d)) / 86400000);
+// FLOATING HEARTS
+const heartsContainer = document.getElementById('floatingHearts');
+const heartSymbols = ['♥','✿','✦','❀'];
+for (let i = 0; i < 18; i++) {
+  const h = document.createElement('span');
+  h.className = 'heart';
+  h.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+  h.style.left = Math.random() * 100 + '%';
+  h.style.bottom = '-20px';
+  h.style.animationDuration = (8 + Math.random() * 14) + 's';
+  h.style.animationDelay = (Math.random() * 12) + 's';
+  h.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+  h.style.color = Math.random() > 0.5 ? '#c97d7d' : '#c4a862';
+  heartsContainer.appendChild(h);
 }
+
+// COUNTERS
+function daysSince(d) { return Math.floor((new Date() - new Date(d)) / 86400000); }
 document.getElementById('days1').textContent = daysSince('2024-01-31').toLocaleString();
 document.getElementById('days2').textContent = daysSince('2025-08-06').toLocaleString();
 
-// ─── MAP ───
-const map = L.map('map', { scrollWheelZoom: false });
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap', maxZoom: 18
-}).addTo(map);
+// TIMELINE ANIMATION
+const tlItems = document.querySelectorAll('.tl-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.2 });
+tlItems.forEach(item => observer.observe(item));
 
-function makeIcon(emoji) {
-  return L.divIcon({
-    html: `<div style="font-size:1.8rem;filter:drop-shadow(0 2px 5px rgba(0,0,0,0.3));line-height:1;">${emoji}</div>`,
-    iconSize: [32,32], iconAnchor: [16,16], className: ''
-  });
-}
+// MAP
+const map = L.map('map', { zoomControl: true, scrollWheelZoom: false });
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 18 }).addTo(map);
 
 const places = [
-  { lat:-0.1807, lng:-78.4678, emoji:'❤️', name:'Quito, Ecuador',
-    desc:'Donde todo empezó. Nuestra ciudad, nuestro primer beso, nuestro primer concierto juntos. El lugar que siempre será nuestro.' },
-  { lat:40.4168, lng:-3.7038,  emoji:'🇪🇸', name:'Madrid, España',
-    desc:'Primera parada en Europa. Las calles de Madrid con tu mano en la mía — imposible olvidarlo.' },
-  { lat:39.4699, lng:-0.3763,  emoji:'🌊', name:'Valencia, España',
-    desc:'La Ciudad de las Artes y las Ciencias, la paella, y tú a mi lado.' },
-  { lat:41.3851, lng:2.1734,   emoji:'🏖️', name:'Barcelona, España',
-    desc:'La Sagrada Familia, el Park Güell, y perdernos juntos por el barrio gótico.' },
-  { lat:50.4347, lng:7.7574,   emoji:'🏰', name:'Montabaur, Alemania',
-    desc:'El pueblo más europeo que imaginamos. Qué bonito verlo contigo.' },
-  { lat:48.8566, lng:2.3522,   emoji:'🗼', name:'París, Francia',
-    desc:'La ciudad del amor. Y yo contigo ahí. No pudo ser más perfecto.' },
-  { lat:41.9028, lng:12.4964,  emoji:'🍕', name:'Roma, Italia',
-    desc:'El Coliseo, la Fontana di Trevi, la mejor pizza — y la mejor compañía del mundo.' },
-  { lat:0.9592,  lng:-79.6536, emoji:'🌴', name:'Esmeraldas, Ecuador',
-    desc:'Nuestra primera playa juntos. Año nuevo 2026. El mar y tú — nada más necesitaba.' },
+  { name: "Quito, Ecuador", lat: -0.2298, lng: -78.5249, emoji: "🏠", desc: "Nuestra casa, donde nos conocimos, donde todo empezó y donde siempre volvemos." },
+  { name: "Madrid, España", lat: 40.4168, lng: -3.7038, emoji: "🇪🇸", desc: "Donde comenzó nuestro viaje, pasamos mi cumpleaños juntos y empezó nuestra hermosa travesía." },
+  { name: "Valencia, España", lat: 39.4699, lng: -0.3763, emoji: "🍊", desc: "Lugar donde conocí más de tu vida, donde pasamos mucho frío, a pesar de todo un lugar especial." },
+  { name: "Barcelona, España", lat: 41.3851, lng: 2.1734, emoji: "🎨", desc: "Una ciudad donde estuvimos un poco más en familia, con mi hermana y Philipp. Vimos a nuestro hermoso equipo juntos por primera vez." },
+  { name: "Montabaur, Alemania", lat: 50.4358, lng: 7.8270, emoji: "🏰", desc: "Una navidad en familia, más cálido, más lindo. Hermosos recuerdos contigo." },
+  { name: "París, Francia", lat: 48.8566, lng: 2.3522, emoji: "🗼", desc: "La ciudad del amor, donde pasamos unas hermosas noches, hermosos recuerdos." },
+  { name: "Roma, Italia", lat: 41.9028, lng: 12.4964, emoji: "🍕", desc: "Nuestro primer año nuevo juntos, hermosa ciudad, deliciosa comida." },
+  { name: "Esmeraldas, Ecuador", lat: 0.9592, lng: -79.6531, emoji: "🌊", desc: "Nuestra primera playa juntos, un viaje hermoso lleno de amor y familia, nuestro segundo año nuevo juntos." },
 ];
 
-const bounds = places.map(p => [p.lat, p.lng]);
-places.forEach(p => {
-  L.marker([p.lat, p.lng], { icon: makeIcon(p.emoji) })
-    .addTo(map)
-    .bindPopup(`
-      <div style="font-family:'Cormorant Garamond',serif;min-width:200px;max-width:250px;">
-        <strong style="font-family:'Playfair Display',serif;font-size:1.05rem;color:#2c2416;display:block;margin-bottom:6px;">${p.name}</strong>
-        <span style="font-size:0.95rem;color:#8a7a6a;line-height:1.55;">${p.desc}</span>
-      </div>
-    `, { maxWidth: 270 });
+const customIcon = (emoji) => L.divIcon({
+  html: `<div style="background:white;border:3px solid #c97d7d;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:2px 4px 12px rgba(44,31,20,0.25);cursor:pointer;">${emoji}</div>`,
+  iconSize: [40, 40], iconAnchor: [20, 20], className: ''
 });
-map.fitBounds(bounds, { padding:[50,50] });
 
-// ─── RAZONES ───
-const razones = [
-  { icon:'💛', text:'Tu corazón',      desc:'El más grande y más puro que he conocido.' },
-  { icon:'✨', text:'Tu personalidad', desc:'Única, irrepetible, imposible de no amar.' },
-  { icon:'🌸', text:'Tu belleza',      desc:'Por dentro y por fuera — eres absolutamente preciosa.' },
-  { icon:'💎', text:'Tu autenticidad', desc:'Nunca finges. Eres tú, siempre, y eso es todo.' },
-  { icon:'🕊️', text:'Tu nobleza',      desc:'La bondad que tienes es extraordinaria.' },
-  { icon:'🤍', text:'Tu generosidad',  desc:'Das sin esperar nada a cambio, siempre.' },
-  { icon:'😊', text:'Tu sonrisa',      desc:'Me descompone el mundo entero cada vez.' },
-  { icon:'👀', text:'Tus ojos',        desc:'En los que me pierdo cada vez que te miro.' },
-  { icon:'🧠', text:'Tu inteligencia', desc:'Me sorprendes y me enseñas todo el tiempo.' },
-  { icon:'🔥', text:'Tu pasión',       desc:'Por lo que amas, por lo que crees, por la vida.' },
-  { icon:'⭐', text:'Tu dedicación',   desc:'A todo lo que haces y a las personas que quieres.' },
-  { icon:'♾️', text:'Eres tú',         desc:'La razón más grande: simplemente eres tú.' },
+places.forEach(p => {
+  const marker = L.marker([p.lat, p.lng], { icon: customIcon(p.emoji) }).addTo(map);
+  marker.bindPopup(`<div style="font-family:'Lora',serif;min-width:180px;"><div style="font-family:'Playfair Display',serif;font-size:1rem;color:#6b4c35;font-weight:700;margin-bottom:4px;">${p.emoji} ${p.name}</div><div style="font-size:0.85rem;color:#5a3e2b;line-height:1.5;">${p.desc}</div></div>`, { maxWidth: 240 });
+});
+map.fitBounds(places.map(p => [p.lat, p.lng]), { padding: [40, 40] });
+
+// RAZONES
+const reasons = [
+  { text: "Tu corazón", emoji: "💗", desc: "La forma en que cuidas a las personas que amas" },
+  { text: "Tu personalidad", emoji: "✨", desc: "Única, irrepetible, completamente tuya" },
+  { text: "Tu belleza", emoji: "🌸", desc: "Por fuera y por dentro, siempre" },
+  { text: "Tu autenticidad", emoji: "🦋", desc: "Nunca finges ser quien no eres" },
+  { text: "Tu nobleza", emoji: "👑", desc: "Siempre haciendo lo correcto" },
+  { text: "Tu generosidad", emoji: "🎁", desc: "Das sin esperar nada a cambio" },
+  { text: "Tu sonrisa", emoji: "😊", desc: "La que me hace el día sin importar nada más" },
+  { text: "Tus ojos", emoji: "👁️", desc: "Que lo dicen todo sin decir nada" },
+  { text: "Tu inteligencia", emoji: "🧠", desc: "Siempre me sorprendes" },
+  { text: "Tu pasión", emoji: "🔥", desc: "Por lo que amas, por la vida" },
+  { text: "Tu dedicación", emoji: "💪", desc: "Cuando te propones algo, lo logras" },
+  { text: "Que eres mía", emoji: "🤍", desc: "Y yo soy tuyo" },
 ];
 
-const grid = document.getElementById('razones-grid');
-razones.forEach((r, i) => {
+const grid = document.getElementById('reasonsGrid');
+reasons.forEach((r, i) => {
   const card = document.createElement('div');
-  card.className = 'razon-card';
-  card.innerHTML = `
-    <div class="razon-inner">
-      <div class="razon-front">
-        <div class="razon-icon">${r.icon}</div>
-        <div class="razon-num">${String(i+1).padStart(2,'0')}</div>
-        <div class="razon-text">${r.text}</div>
-        <div class="flip-hint">toca para ver ♡</div>
-      </div>
-      <div class="razon-back">
-        <div class="razon-icon">${r.icon}</div>
-        <div class="razon-text">${r.desc}</div>
-      </div>
-    </div>`;
+  card.className = 'reason-card';
+  card.innerHTML = `<div class="reason-inner"><div class="reason-front"><div class="reason-number">${String(i+1).padStart(2,'0')}</div><div class="reason-hint">toca para descubrir</div></div><div class="reason-back"><div class="reason-emoji">${r.emoji}</div><div class="reason-text">${r.text}</div><div class="reason-hint" style="margin-top:6px;">${r.desc}</div></div></div>`;
   card.addEventListener('click', () => card.classList.toggle('flipped'));
   grid.appendChild(card);
 });
 
-// ─── ÁLBUM ───
-// Para agregar fotos reales:
-// 1. Sube a Google Drive → compartir → "Cualquier persona con el enlace"
-// 2. Copia el ID del link (la parte larga entre /d/ y /view)
-// 3. Reemplaza ID en: https://drive.google.com/uc?export=view&id=TU_ID
-// 4. Agrega objetos al array: { url: "...", caption: "descripción" }
-
-const photos = [
-  // { url: "https://drive.google.com/uc?export=view&id=XXXXXXXXX", caption: "Primer día juntos ♡" },
-];
-
-const placeholders = [
-  { icon:'🌹', caption:'Quito — el inicio ♡' },
-  { icon:'🎵', caption:'Nuestro primer concierto' },
-  { icon:'🗼', caption:'París, diciembre 2024' },
-  { icon:'🌊', caption:'Esmeraldas, año nuevo' },
-  { icon:'🏛️', caption:'Roma, con todo el amor' },
-  { icon:'⭐', caption:'Cada momento contigo' },
-];
-
-const albumGrid = document.getElementById('album-grid');
-const items = photos.length > 0 ? photos : null;
-
-if (!items) {
-  placeholders.forEach(p => {
-    const pol = document.createElement('div');
-    pol.className = 'polaroid';
-    pol.innerHTML = `<div class="tape-strip"></div><div class="polaroid-placeholder">${p.icon}</div><div class="polaroid-caption">${p.caption}</div>`;
-    albumGrid.appendChild(pol);
+// ALBUM
+const polaroidGrid = document.getElementById('polaroidGrid');
+const albumPlaceholder = document.getElementById('albumPlaceholder');
+if (typeof PHOTOS !== 'undefined' && PHOTOS.length > 0) {
+  albumPlaceholder.style.display = 'none';
+  PHOTOS.forEach(photo => {
+    const p = document.createElement('div');
+    p.className = 'polaroid';
+    p.innerHTML = `<img src="${photo.url}" alt="${photo.caption}" loading="lazy" onerror="this.style.background='#ede5d4'"><div class="caption">${photo.caption}</div>`;
+    p.querySelector('img').addEventListener('click', () => openLightbox(photo.url, photo.caption));
+    polaroidGrid.appendChild(p);
   });
-  const note = document.createElement('div');
-  note.className = 'album-note';
-  note.innerHTML = '📸 Matias: agrega las fotos reales con los links de Google Drive en el código ♡';
-  albumGrid.appendChild(note);
 } else {
-  photos.forEach(p => {
-    const pol = document.createElement('div');
-    pol.className = 'polaroid';
-    pol.innerHTML = `<div class="tape-strip"></div><img src="${p.url}" alt="${p.caption}" onclick="openModal('${p.url}')"><div class="polaroid-caption">${p.caption}</div>`;
-    albumGrid.appendChild(pol);
-  });
+  polaroidGrid.style.display = 'none';
 }
 
-// ─── MODAL ───
-function openModal(src) {
-  document.getElementById('modal-img').src = src;
-  document.getElementById('modal').classList.add('open');
+// LIGHTBOX
+function openLightbox(src, alt) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt;
+  document.getElementById('lightbox').classList.add('open');
 }
-function closeModal() {
-  document.getElementById('modal').classList.remove('open');
-}
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal')) closeModal();
-});
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
 
-// ─── RULETA ───
-const planes = [
-  'Almuerzo en El Alaja 🍽️',
-  'Glamping 🏕️',
-  'Noche de Pizza en Casa 🍕',
-  'Battlefield Sushi Edition 🍣',
-  'Clase de Cocina 👨‍🍳',
-  'Paseo por el Centro 🏛️',
-  'Concierto de Arcángel 🎤',
-  'Date en el Noé 🌙',
-  'Correr Juntos 🏃',
-  'Cita +18 😏',
-  'Visita al Teleférico 🚡',
-  'Noche de Karaoke 🎶',
-  'Movie Marathon 🎬',
-  'Escape Room 🔐',
-  'Spa Day en Casa 🧖',
+// CARTA
+const letterContentEl = document.getElementById('letterContent');
+const letterDateEl = document.getElementById('letterDate');
+const letterSigEl = document.getElementById('letterSignature');
+
+if (typeof LETTER !== 'undefined' && LETTER.text) {
+  letterDateEl.textContent = LETTER.date || '';
+  letterSigEl.textContent = LETTER.signature || '';
+  letterContentEl.innerHTML = '';
+  let i = 0;
+  const text = LETTER.text;
+  function typeWriter() {
+    if (i < text.length) { letterContentEl.innerHTML += text.charAt(i); i++; setTimeout(typeWriter, 28); }
+  }
+  const letterObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { typeWriter(); letterObserver.disconnect(); }
+  }, { threshold: 0.3 });
+  letterObserver.observe(letterContentEl);
+} else {
+  letterDateEl.textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+// RULETA
+const plans = [
+  { text: "Almuerzo en el Alaja", emoji: "🍽️" },
+  { text: "Ir de Glamping", emoji: "⛺" },
+  { text: "Noche de Pizza en Casa", emoji: "🍕" },
+  { text: "Battlefield Sushi Edition", emoji: "🍣" },
+  { text: "Clase de Cocina", emoji: "👨‍🍳" },
+  { text: "Paseo por el Centro", emoji: "🏛️" },
+  { text: "Concierto de Arcángel", emoji: "🎵" },
+  { text: "Date en el Noé", emoji: "🥂" },
+  { text: "Correr Juntos", emoji: "🏃" },
+  { text: "Cita Especial +18", emoji: "🌙" },
+  { text: "Visita al Teleférico", emoji: "🚡" },
+  { text: "Noche de Karaoke", emoji: "🎤" },
+  { text: "Movie Marathon", emoji: "🎬" },
+  { text: "Escape Room", emoji: "🔐" },
+  { text: "Spa Day en Casa", emoji: "🛁" },
 ];
 
 const canvas = document.getElementById('wheel-canvas');
 const ctx = canvas.getContext('2d');
-const numSeg = planes.length;
-const arc = (2 * Math.PI) / numSeg;
+const W = 320, CX = W/2, CY = W/2, R = W/2 - 4;
+const colors = ['#f5e0e0','#ede5d4','#e8d5a0','#d4c5e2','#c8dfe0','#f0e6d8','#e0ddd8'];
+let currentAngle = 0, spinning = false;
 
-const wheelColors = [
-  '#c4756a','#b8860b','#9a7a6a','#d4948a','#a06858',
-  '#c9a96e','#8a6a5a','#d4b896','#9a7060','#c4956a',
-  '#8a6a60','#b49060','#a08878','#c4a06a','#907060',
-];
-
-let angle = 0, spinning = false;
-
-function drawWheel(a) {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  const cx = canvas.width/2, cy = canvas.height/2, r = cx - 4;
-  planes.forEach((plan, i) => {
-    const s = a + i * arc, e = s + arc;
-    ctx.beginPath();
-    ctx.moveTo(cx,cy);
-    ctx.arc(cx,cy,r,s,e);
-    ctx.closePath();
-    ctx.fillStyle = wheelColors[i % wheelColors.length];
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(245,240,232,0.35)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.save();
-    ctx.translate(cx,cy);
-    ctx.rotate(s + arc/2);
-    ctx.textAlign = 'right';
-    ctx.fillStyle = 'rgba(255,255,255,0.95)';
-    ctx.font = "bold 9.5px 'Caveat', cursive";
-    ctx.shadowColor = 'rgba(0,0,0,0.25)';
-    ctx.shadowBlur = 3;
-    const lbl = plan.length > 17 ? plan.substring(0,17)+'…' : plan;
-    ctx.fillText(lbl, r-10, 4);
-    ctx.restore();
+function drawWheel(angle) {
+  const n = plans.length, slice = (2 * Math.PI) / n;
+  ctx.clearRect(0, 0, W, W);
+  plans.forEach((plan, i) => {
+    const start = angle + i * slice, end = start + slice;
+    ctx.beginPath(); ctx.moveTo(CX, CY); ctx.arc(CX, CY, R, start, end); ctx.closePath();
+    ctx.fillStyle = colors[i % colors.length]; ctx.fill();
+    ctx.strokeStyle = '#c4a862'; ctx.lineWidth = 1.5; ctx.stroke();
+    ctx.save(); ctx.translate(CX, CY); ctx.rotate(start + slice / 2);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#2c1f14'; ctx.font = "bold 10px 'Lora', serif";
+    const label = plan.text.length > 14 ? plan.text.substring(0, 14) + '…' : plan.text;
+    ctx.fillText(label, R - 12, 4); ctx.restore();
   });
-  // Center
-  ctx.beginPath();
-  ctx.arc(cx,cy,22,0,2*Math.PI);
-  ctx.fillStyle = '#faf7f2';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(184,134,11,0.35)';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-  ctx.fillStyle = '#c4756a';
-  ctx.font = "bold 16px 'Caveat',cursive";
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('♡', cx, cy);
+  ctx.beginPath(); ctx.arc(CX, CY, 28, 0, 2 * Math.PI);
+  ctx.fillStyle = 'white'; ctx.fill();
+  ctx.strokeStyle = '#c97d7d'; ctx.lineWidth = 3; ctx.stroke();
+  ctx.font = "18px serif"; ctx.textAlign = 'center'; ctx.fillText('♥', CX, CY + 6);
 }
 
-drawWheel(angle);
+drawWheel(currentAngle);
 
 function spinWheel() {
   if (spinning) return;
   spinning = true;
-  document.getElementById('spin-btn').disabled = true;
-  document.getElementById('result-display').style.display = 'none';
-
-  const extra = (Math.floor(Math.random()*5)+5) * 2 * Math.PI;
-  const target = angle + extra + Math.random() * 2 * Math.PI;
-  const dur = 4200, t0 = performance.now(), a0 = angle;
-
-  function easeOut(t) { return 1 - Math.pow(1-t, 4); }
-
-  function frame(now) {
-    const p = Math.min((now-t0)/dur, 1);
-    angle = a0 + (target-a0)*easeOut(p);
-    drawWheel(angle);
-    if (p < 1) { requestAnimationFrame(frame); return; }
-
-    spinning = false;
-    document.getElementById('spin-btn').disabled = false;
-    const norm = (((-angle) % (2*Math.PI)) + 2*Math.PI) % (2*Math.PI);
-    const idx = Math.floor(norm / arc) % numSeg;
-    const res = document.getElementById('result-display');
-    res.textContent = planes[idx];
-    res.style.display = 'block';
+  document.getElementById('spinBtn').disabled = true;
+  document.getElementById('resultCard').classList.remove('show');
+  const totalRotation = (5 + Math.random() * 5) * 2 * Math.PI;
+  const duration = 4000, start = performance.now(), startAngle = currentAngle;
+  function animate(now) {
+    const elapsed = now - start, t = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 4);
+    currentAngle = startAngle + totalRotation * eased;
+    drawWheel(currentAngle);
+    if (t < 1) { requestAnimationFrame(animate); }
+    else {
+      spinning = false;
+      document.getElementById('spinBtn').disabled = false;
+      const n = plans.length, slice = (2 * Math.PI) / n;
+      const normalized = ((-currentAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
+      const idx = Math.floor(normalized / slice) % n;
+      document.getElementById('resultEmoji').textContent = plans[idx].emoji;
+      document.getElementById('resultText').textContent = plans[idx].text;
+      document.getElementById('resultCard').classList.add('show');
+    }
   }
-  requestAnimationFrame(frame);
+  requestAnimationFrame(animate);
 }
-
-// ─── SCROLL ANIMATIONS ───
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.15 });
-document.querySelectorAll('.tl-item').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
