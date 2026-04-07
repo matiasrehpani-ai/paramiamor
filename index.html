@@ -304,6 +304,23 @@
       border: 2px dashed var(--gold-light);
     }
 
+    #citaFoto {
+      font-family: 'Caveat', cursive;
+      background: var(--cream);
+      border: 1px solid var(--gold-light);
+      border-radius: 4px;
+      color: var(--brown);
+      cursor: pointer;
+      width: 100%;
+    }
+    .cita-foto {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
     .toast {
       position: fixed;
       bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
@@ -532,6 +549,13 @@ document.querySelectorAll('nav a').forEach(a => {
         <div class="form-group form-full">
           <label>💬 Descripción</label>
           <textarea id="citaDesc" rows="3" placeholder="¿Cómo estuvo? ¿Qué hicieron? Un recuerdo bonito..."></textarea>
+        </div>
+        <div class="form-group form-full">
+          <label>📷 Foto del recuerdo (opcional)</label>
+          <input type="file" id="citaFoto" accept="image/*" style="font-size:1rem;padding:8px;" />
+          <div id="fotoPreview" style="display:none;margin-top:10px;">
+            <img id="fotoPreviewImg" style="max-width:100%;max-height:200px;border-radius:4px;object-fit:cover;" />
+          </div>
         </div>
       </div>
       <button class="save-btn" id="saveBtn" onclick="guardarCita()">Guardar cita 🤍</button>
@@ -818,6 +842,38 @@ async function cargarCitas() {
   }
 }
 
+// Foto preview
+document.getElementById('citaFoto').addEventListener('change', function() {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('fotoPreviewImg').src = e.target.result;
+      document.getElementById('fotoPreview').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    document.getElementById('fotoPreview').style.display = 'none';
+  }
+});
+
+async function uploadFoto(file) {
+  const ext = file.name.split('.').pop();
+  const fileName = `cita_${Date.now()}.${ext}`;
+  const res = await fetch(`${SUPABASE_URL}/storage/v1/object/citas-fotos/${fileName}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': file.type,
+      'x-upsert': 'true'
+    },
+    body: file
+  });
+  if (!res.ok) throw new Error('Error subiendo foto');
+  return `${SUPABASE_URL}/storage/v1/object/public/citas-fotos/${fileName}`;
+}
+
 async function guardarCita() {
   const fecha = document.getElementById('citaFecha').value;
   const lugar = document.getElementById('citaLugar').value.trim();
@@ -831,10 +887,17 @@ async function guardarCita() {
   btn.textContent = 'Guardando...';
 
   try {
+    let foto_url = null;
+    const fotoFile = document.getElementById('citaFoto').files[0];
+    if (fotoFile) {
+      btn.textContent = 'Subiendo foto...';
+      foto_url = await uploadFoto(fotoFile);
+    }
+
     const [nueva] = await supabaseFetch('Citas', {
       method: 'POST',
       prefer: 'return=representation',
-      body: JSON.stringify({ Fecha: fecha, Lugar: lugar, "Descripción": desc, Quien: quien })
+      body: JSON.stringify({ Fecha: fecha, Lugar: lugar, "Descripción": desc, Quien: quien, foto_url })
     });
 
     const lista = document.getElementById('citasLista');
@@ -846,6 +909,8 @@ async function guardarCita() {
     document.getElementById('citaFecha').value = '';
     document.getElementById('citaLugar').value = '';
     document.getElementById('citaDesc').value = '';
+    document.getElementById('citaFoto').value = '';
+    document.getElementById('fotoPreview').style.display = 'none';
 
     showToast('¡Cita guardada! 🤍');
   } catch(e) {
