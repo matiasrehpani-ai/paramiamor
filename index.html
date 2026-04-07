@@ -767,7 +767,7 @@ const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov'
 
 function renderCita(cita, prepend = false) {
   const lista = document.getElementById('citasLista');
-  const fecha = cita.fecha ? new Date(cita.fecha + 'T12:00:00') : null;
+  const fecha = (cita.Fecha || cita.fecha) ? new Date((cita.Fecha || cita.fecha) + 'T12:00:00') : null;
   const dia = fecha ? fecha.getDate() : '—';
   const mes = fecha ? meses[fecha.getMonth()] : '';
 
@@ -779,9 +779,9 @@ function renderCita(cita, prepend = false) {
       <div class="mes">${mes}</div>
     </div>
     <div class="cita-info">
-      <div class="cita-lugar">📍 ${cita.lugar || 'Sin lugar'}</div>
-      <div class="cita-desc">${cita.descripcion || ''}</div>
-      <div class="cita-quien">— ${cita.quien}</div>
+      <div class="cita-lugar">📍 ${cita.Lugar || cita.lugar || 'Sin lugar'}</div>
+      <div class="cita-desc">${cita.Descripcion || cita.descripcion || ''}</div>
+      <div class="cita-quien">— ${cita.Quien || cita.quien}</div>
     </div>
   `;
 
@@ -825,7 +825,7 @@ async function guardarCita() {
     const [nueva] = await supabaseFetch('Citas', {
       method: 'POST',
       prefer: 'return=representation',
-      body: JSON.stringify({ fecha, lugar, descripcion: desc, quien })
+      body: JSON.stringify({ Fecha: fecha, Lugar: lugar, Descripcion: desc, Quien: quien })
     });
 
     const lista = document.getElementById('citasLista');
