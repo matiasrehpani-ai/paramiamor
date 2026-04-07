@@ -797,7 +797,7 @@ function renderCita(cita, prepend = false) {
 async function cargarCitas() {
   const lista = document.getElementById('citasLista');
   try {
-    const citas = await supabaseFetch('Citas?select=*&order=fecha.desc&order=created_at.desc');
+    const citas = await supabaseFetch('Citas?select=*&order=fecha.desc,created_at.desc');
     lista.innerHTML = '';
     if (!citas.length) {
       lista.innerHTML = '<div class="citas-empty">Todavía no hay citas guardadas 🌸<br>¡Sean los primeros en agregar una!</div>';
