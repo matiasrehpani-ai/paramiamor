@@ -87,63 +87,39 @@
       margin-bottom: 50px;
     }
 
+    /* HERO */
     #hero {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; text-align: center;
       padding-top: 80px;
       background: radial-gradient(ellipse at 50% 0%, #f0e6d8 0%, var(--cream) 70%);
       min-height: 100vh;
     }
     .hero-stamp {
-      font-family: 'Caveat', cursive;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      color: var(--rose);
-      text-transform: uppercase;
-      border: 2px solid var(--rose-light);
-      padding: 4px 16px;
-      border-radius: 3px;
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp 1s 0.3s forwards;
+      font-family: 'Caveat', cursive; font-size: 0.85rem; letter-spacing: 3px;
+      color: var(--rose); text-transform: uppercase;
+      border: 2px solid var(--rose-light); padding: 4px 16px; border-radius: 3px;
+      margin-bottom: 24px; opacity: 0; animation: fadeUp 1s 0.3s forwards;
     }
     .hero-title {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 9vw, 7rem);
-      color: var(--brown);
-      line-height: 1.05;
-      margin-bottom: 12px;
-      opacity: 0;
-      animation: fadeUp 1s 0.6s forwards;
+      color: var(--brown); line-height: 1.05; margin-bottom: 12px;
+      opacity: 0; animation: fadeUp 1s 0.6s forwards;
     }
     .hero-title em { font-style: italic; color: var(--rose); display: block; }
     .hero-sub {
-      font-family: 'Caveat', cursive;
-      font-size: 1.5rem;
-      color: var(--brown-light);
-      margin-bottom: 40px;
-      opacity: 0;
-      animation: fadeUp 1s 0.9s forwards;
+      font-family: 'Caveat', cursive; font-size: 1.5rem;
+      color: var(--brown-light); margin-bottom: 40px;
+      opacity: 0; animation: fadeUp 1s 0.9s forwards;
     }
     .counters-wrap {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 1s 1.2s forwards;
+      display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 48px; opacity: 0; animation: fadeUp 1s 1.2s forwards;
     }
     .counter-card {
-      background: white;
-      border: 1px solid var(--gold-light);
-      border-radius: 4px;
-      padding: 20px 28px;
-      box-shadow: 3px 5px 18px var(--shadow);
-      position: relative;
+      background: white; border: 1px solid var(--gold-light); border-radius: 4px;
+      padding: 20px 28px; box-shadow: 3px 5px 18px var(--shadow);
       transform: rotate(-1.5deg);
     }
     .counter-card:nth-child(2) { transform: rotate(1.2deg); }
@@ -151,18 +127,10 @@
     .counter-card .days { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--rose); font-weight: 700; line-height: 1; }
     .counter-card .days-label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); margin-top: 2px; }
     .hero-cta {
-      display: inline-block;
-      font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
-      color: white;
-      background: var(--rose);
-      padding: 12px 32px;
-      border-radius: 30px;
-      text-decoration: none;
-      box-shadow: 0 4px 20px rgba(201,125,125,0.4);
-      transition: all 0.3s;
-      opacity: 0;
-      animation: fadeUp 1s 1.5s forwards;
+      display: inline-block; font-family: 'Caveat', cursive; font-size: 1.2rem;
+      color: white; background: var(--rose); padding: 12px 32px; border-radius: 30px;
+      text-decoration: none; box-shadow: 0 4px 20px rgba(201,125,125,0.4);
+      transition: all 0.3s; opacity: 0; animation: fadeUp 1s 1.5s forwards;
     }
     .hero-cta:hover { background: var(--brown); transform: translateY(-2px); }
     .floating-hearts { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -170,8 +138,7 @@
 
     @keyframes floatHeart {
       0% { opacity: 0; transform: translateY(0) rotate(0deg); }
-      10% { opacity: 0.6; }
-      90% { opacity: 0.2; }
+      10% { opacity: 0.6; } 90% { opacity: 0.2; }
       100% { opacity: 0; transform: translateY(-100vh) rotate(360deg); }
     }
     @keyframes fadeUp {
@@ -179,58 +146,30 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* TIMELINE */
     #historia { background: var(--cream-dark); }
     .timeline { max-width: 700px; margin: 0 auto; position: relative; }
     .timeline::before {
-      content: '';
-      position: absolute;
-      left: 32px;
-      top: 0; bottom: 0;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--gold-light), var(--rose-light), var(--gold-light));
+      content: ''; position: absolute; left: 32px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--gold-light), var(--rose-light), var(--gold-light));
     }
-    .tl-item {
-      display: flex;
-      gap: 24px;
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.6s;
-      align-items: flex-start;
-    }
+    .tl-item { display: flex; gap: 24px; margin-bottom: 40px; opacity: 0; transform: translateX(-20px); transition: all 0.6s; align-items: flex-start; }
     .tl-item.visible { opacity: 1; transform: translateX(0); }
-    .tl-dot {
-      width: 64px; min-width: 64px; height: 64px;
-      background: white;
-      border: 3px solid var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 0 4px 16px var(--shadow);
-      position: relative;
-      z-index: 1;
-    }
-    .tl-card {
-      background: white;
-      border-radius: 4px;
-      padding: 18px 22px;
-      box-shadow: 3px 5px 18px var(--shadow);
-      flex: 1;
-      border-left: 4px solid var(--rose-light);
-    }
+    .tl-dot { width: 64px; min-width: 64px; height: 64px; background: white; border: 3px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; box-shadow: 0 4px 16px var(--shadow); position: relative; z-index: 1; }
+    .tl-card { background: white; border-radius: 4px; padding: 18px 22px; box-shadow: 3px 5px 18px var(--shadow); flex: 1; border-left: 4px solid var(--rose-light); }
     .tl-card .date { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--rose); margin-bottom: 4px; letter-spacing: 1px; }
     .tl-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--brown); margin-bottom: 6px; }
     .tl-card p { font-size: 0.9rem; color: var(--ink-light); line-height: 1.6; }
 
+    /* MAP */
     #mapa { background: var(--cream); }
     #map { width: 100%; max-width: 900px; height: 500px; margin: 0 auto; border-radius: 4px; box-shadow: 6px 10px 40px var(--shadow); border: 8px solid white; display: block; }
 
+    /* RAZONES */
     #razones { background: var(--cream-dark); }
     .reasons-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; max-width: 900px; margin: 0 auto; }
     .reason-card { background: white; border-radius: 2px; padding: 24px 20px 20px; box-shadow: 4px 6px 20px var(--shadow); cursor: pointer; perspective: 600px; min-height: 200px; }
-    .reason-inner { position: relative; width: 100%; height: 100%; min-height: 160px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reason-inner { position: relative; width: 100%; height: 100%; min-height: 160px; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4,0,0.2,1); }
     .reason-card:hover .reason-inner, .reason-card.flipped .reason-inner { transform: rotateY(180deg); }
     .reason-front, .reason-back { position: absolute; inset: 0; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .reason-back { transform: rotateY(180deg); }
@@ -239,6 +178,7 @@
     .reason-text { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--brown); font-style: italic; line-height: 1.5; }
     .reason-emoji { font-size: 2rem; margin-bottom: 10px; }
 
+    /* ALBUM */
     #album { background: var(--cream); }
     .polaroid-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; max-width: 900px; margin: 0 auto; }
     .album-placeholder { max-width: 800px; margin: 0 auto; background: white; border: 2px dashed var(--gold-light); border-radius: 8px; padding: 60px 40px; text-align: center; }
@@ -249,6 +189,7 @@
     .polaroid img { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--cream-dark); }
     .polaroid .caption { font-family: 'Caveat', cursive; font-size: 0.95rem; color: var(--brown); text-align: center; margin-top: 10px; line-height: 1.3; }
 
+    /* CARTA */
     #carta { background: var(--cream-dark); }
     .letter-wrap { max-width: 680px; margin: 0 auto; background: #fffdf5; border-radius: 2px; padding: 56px 60px; box-shadow: 6px 10px 40px var(--shadow); position: relative; border: 1px solid var(--gold-light); min-height: 400px; }
     .letter-wrap::before { content: ''; position: absolute; top: 0; bottom: 0; left: 60px; width: 1px; background: rgba(201,125,125,0.3); }
@@ -257,6 +198,7 @@
     .letter-date { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); text-align: right; margin-bottom: 32px; }
     .letter-signature { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; color: var(--rose); margin-top: 32px; }
 
+    /* RULETA */
     #ruleta { background: var(--cream); }
     .ruleta-wrap { display: flex; flex-direction: column; align-items: center; gap: 32px; }
     .wheel-container { position: relative; width: 320px; height: 320px; }
@@ -271,10 +213,114 @@
     .result-card h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--brown); margin-bottom: 4px; }
     .result-card p { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); }
 
+    /* CITAS */
+    #citas { background: var(--cream-dark); }
+
+    .citas-wrap { max-width: 800px; margin: 0 auto; }
+
+    .cita-form {
+      background: white;
+      border-radius: 4px;
+      padding: 32px;
+      box-shadow: 4px 6px 24px var(--shadow);
+      margin-bottom: 48px;
+      border-left: 4px solid var(--rose);
+    }
+    .cita-form h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--brown);
+      margin-bottom: 20px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); }
+    .form-group input, .form-group textarea, .form-group select {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--ink);
+      background: var(--cream);
+      border: 1px solid var(--gold-light);
+      border-radius: 4px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--rose); }
+    .form-full { grid-column: 1 / -1; }
+    .save-btn {
+      font-family: 'Caveat', cursive; font-size: 1.2rem;
+      color: white; background: var(--rose); border: none;
+      padding: 12px 32px; border-radius: 30px; cursor: pointer;
+      box-shadow: 0 4px 20px rgba(201,125,125,0.4);
+      transition: all 0.3s; margin-top: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .save-btn:hover:not(:disabled) { background: var(--brown); transform: translateY(-2px); }
+    .save-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .citas-lista { display: flex; flex-direction: column; gap: 20px; }
+
+    .cita-item {
+      background: white;
+      border-radius: 4px;
+      padding: 22px 26px;
+      box-shadow: 3px 5px 18px var(--shadow);
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: all 0.5s;
+      border-left: 4px solid var(--gold-light);
+    }
+    .cita-item.visible { opacity: 1; transform: translateY(0); }
+    .cita-item.nueva { border-left-color: var(--rose); }
+
+    .cita-fecha-box {
+      min-width: 72px;
+      text-align: center;
+      background: var(--rose-pale);
+      border-radius: 4px;
+      padding: 10px 8px;
+    }
+    .cita-fecha-box .dia { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--rose); font-weight: 700; line-height: 1; }
+    .cita-fecha-box .mes { font-family: 'Caveat', cursive; font-size: 0.85rem; color: var(--brown-light); margin-top: 2px; }
+
+    .cita-info { flex: 1; }
+    .cita-lugar { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--brown); font-weight: 700; margin-bottom: 4px; }
+    .cita-desc { font-size: 0.9rem; color: var(--ink-light); line-height: 1.6; margin-bottom: 6px; }
+    .cita-quien { font-family: 'Caveat', cursive; font-size: 0.9rem; color: var(--rose); }
+
+    .citas-empty {
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: var(--brown-light);
+      padding: 40px;
+      background: white;
+      border-radius: 4px;
+      border: 2px dashed var(--gold-light);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--brown); color: white;
+      font-family: 'Caveat', cursive; font-size: 1.1rem;
+      padding: 12px 28px; border-radius: 30px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      transition: transform 0.4s; z-index: 999;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* FOOTER */
     footer { text-align: center; padding: 48px 20px; background: var(--brown); color: var(--gold-light); }
     footer p { font-family: 'Caveat', cursive; font-size: 1.2rem; margin-bottom: 8px; }
     footer .heart { color: var(--rose-light); font-size: 1.5rem; }
 
+    /* LIGHTBOX */
     .lightbox { position: fixed; inset: 0; background: rgba(44,31,20,0.9); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
     .lightbox.open { opacity: 1; pointer-events: all; }
     .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; border: 8px solid white; box-shadow: 0 20px 80px rgba(0,0,0,0.5); }
@@ -286,6 +332,7 @@
       .letter-wrap { padding: 40px 28px; }
       .letter-wrap::before { left: 28px; }
       #map { height: 350px; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -299,6 +346,7 @@
   <a href="#album">📸 Álbum</a>
   <a href="#carta">✉️ Carta</a>
   <a href="#ruleta">🎡 Planes</a>
+  <a href="#citas">🗓️ Citas</a>
 </nav>
 
 <div class="lightbox" id="lightbox">
@@ -306,6 +354,9 @@
   <img id="lightbox-img" src="" alt="" />
 </div>
 
+<div class="toast" id="toast"></div>
+
+<!-- HERO -->
 <section id="hero">
   <div class="floating-hearts" id="floatingHearts"></div>
   <div class="hero-stamp">Con todo mi amor · 2024 — forever</div>
@@ -326,11 +377,11 @@
   <a href="#historia" class="hero-cta">Nuestra historia →</a>
 </section>
 
+<!-- HISTORIA -->
 <section id="historia">
   <h2 class="section-title">Nuestra <span>historia</span></h2>
   <p class="section-subtitle">cada momento que nos trajo hasta aquí</p>
   <div class="timeline">
-
     <div class="tl-item">
       <div class="tl-dot">💑</div>
       <div class="tl-card">
@@ -339,7 +390,6 @@
         <p>El día que decidimos estar juntos para siempre, oficialmente comenzaba nuestra historia de amor.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">🎵</div>
       <div class="tl-card">
@@ -348,7 +398,6 @@
         <p>Juntos en Morat escuchando y disfrutando cada canción, pasando una noche inolvidable con hermosa música.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">✈️</div>
       <div class="tl-card">
@@ -357,7 +406,6 @@
         <p>Madrid, Valencia, Barcelona, Montabaur, París y Roma. Seis ciudades, una aventura, los dos. Un diciembre que nunca vamos a olvidar.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">🌊</div>
       <div class="tl-card">
@@ -366,7 +414,6 @@
         <p>Esmeraldas nos vio despedir un año y empezar otro. El mar y tú — nada más necesitaba.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">🌧️</div>
       <div class="tl-card" style="border-left-color: var(--gold-light);">
@@ -375,7 +422,6 @@
         <p>A veces los caminos se separan para que uno pueda ver con claridad lo que de verdad importa. Esta historia tenía más páginas por escribir.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">🌅</div>
       <div class="tl-card" style="border-left-color: var(--gold);">
@@ -384,7 +430,6 @@
         <p>Porque esta historia no merecía acabarse así, porque lo nuestro apenas empezaba, volvimos para quedarnos para siempre.</p>
       </div>
     </div>
-
     <div class="tl-item">
       <div class="tl-dot">🤍</div>
       <div class="tl-card">
@@ -393,22 +438,24 @@
         <p>Un año y ocho meses de aventuras, risas, y crecer juntos. Y apenas estamos empezando.</p>
       </div>
     </div>
-
   </div>
 </section>
 
+<!-- MAPA -->
 <section id="mapa">
   <h2 class="section-title">Nuestros <span>lugares</span></h2>
   <p class="section-subtitle">cada pin es un recuerdo contigo</p>
   <div id="map"></div>
 </section>
 
+<!-- RAZONES -->
 <section id="razones">
   <h2 class="section-title">Por qué te <span>amo</span></h2>
   <p class="section-subtitle">toca cada carta para descubrirlo ✨</p>
   <div class="reasons-grid" id="reasonsGrid"></div>
 </section>
 
+<!-- ALBUM -->
 <section id="album">
   <h2 class="section-title">Nuestro <span>álbum</span></h2>
   <p class="section-subtitle">momentos guardados para siempre</p>
@@ -419,6 +466,7 @@
   </div>
 </section>
 
+<!-- CARTA -->
 <section id="carta">
   <h2 class="section-title">Una <span>carta</span> para ti</h2>
   <p class="section-subtitle">escrita con todo lo que siento</p>
@@ -430,6 +478,7 @@
   </div>
 </section>
 
+<!-- RULETA -->
 <section id="ruleta">
   <h2 class="section-title">Ruleta de <span>planes</span></h2>
   <p class="section-subtitle">¿sin ideas? gira y el universo decide 🎡</p>
@@ -447,6 +496,44 @@
   </div>
 </section>
 
+<!-- CITAS -->
+<section id="citas">
+  <h2 class="section-title">Nuestras <span>citas</span></h2>
+  <p class="section-subtitle">cada momento juntos, guardado para siempre 🗓️</p>
+
+  <div class="citas-wrap">
+    <div class="cita-form">
+      <h3>✨ Agregar una cita</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>📅 Fecha</label>
+          <input type="date" id="citaFecha" />
+        </div>
+        <div class="form-group">
+          <label>👤 ¿Quién la agrega?</label>
+          <select id="citaQuien">
+            <option value="Matías">Matías 🤍</option>
+            <option value="María Clara">María Clara 🌸</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>📍 Lugar</label>
+          <input type="text" id="citaLugar" placeholder="ej. Noé, Casa, Teleférico..." />
+        </div>
+        <div class="form-group form-full">
+          <label>💬 Descripción</label>
+          <textarea id="citaDesc" rows="3" placeholder="¿Cómo estuvo? ¿Qué hicieron? Un recuerdo bonito..."></textarea>
+        </div>
+      </div>
+      <button class="save-btn" id="saveBtn" onclick="guardarCita()">Guardar cita 🤍</button>
+    </div>
+
+    <div class="citas-lista" id="citasLista">
+      <div class="citas-empty">Cargando citas... 🌸</div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p>Hecho con mucho amor para María Clara</p>
   <p class="heart">♥</p>
@@ -457,7 +544,26 @@
 <script src="photos.js"></script>
 <script src="letter.js"></script>
 <script>
-// FLOATING HEARTS
+// ── SUPABASE CONFIG ──
+const SUPABASE_URL = 'https://qmceomniedmemalqbwqq.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_iX-Ro1AxjGuvoh94seM2Fg_iQknMvvR';
+
+async function supabaseFetch(path, options = {}) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json',
+      'Prefer': options.prefer || 'return=representation',
+      ...options.headers
+    },
+    ...options
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return options.method === 'POST' ? res.json() : res.json();
+}
+
+// ── FLOATING HEARTS ──
 const heartsContainer = document.getElementById('floatingHearts');
 const heartSymbols = ['♥','✿','✦','❀'];
 for (let i = 0; i < 18; i++) {
@@ -473,22 +579,21 @@ for (let i = 0; i < 18; i++) {
   heartsContainer.appendChild(h);
 }
 
-// COUNTERS
+// ── COUNTERS ──
 function daysSince(d) { return Math.floor((new Date() - new Date(d)) / 86400000); }
 document.getElementById('days1').textContent = daysSince('2024-01-31').toLocaleString();
 document.getElementById('days2').textContent = daysSince('2025-08-06').toLocaleString();
 
-// TIMELINE ANIMATION
+// ── TIMELINE ANIMATION ──
 const tlItems = document.querySelectorAll('.tl-item');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.2 });
 tlItems.forEach(item => observer.observe(item));
 
-// MAP
+// ── MAP ──
 const map = L.map('map', { zoomControl: true, scrollWheelZoom: false });
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 18 }).addTo(map);
-
 const places = [
   { name: "Quito, Ecuador", lat: -0.2298, lng: -78.5249, emoji: "🏠", desc: "Nuestra casa, donde nos conocimos, donde todo empezó y donde siempre volvemos." },
   { name: "Madrid, España", lat: 40.4168, lng: -3.7038, emoji: "🇪🇸", desc: "Donde comenzó nuestro viaje, pasamos mi cumpleaños juntos y empezó nuestra hermosa travesía." },
@@ -499,19 +604,17 @@ const places = [
   { name: "Roma, Italia", lat: 41.9028, lng: 12.4964, emoji: "🍕", desc: "Nuestro primer año nuevo juntos, hermosa ciudad, deliciosa comida." },
   { name: "Esmeraldas, Ecuador", lat: 0.9592, lng: -79.6531, emoji: "🌊", desc: "Nuestra primera playa juntos, un viaje hermoso lleno de amor y familia, nuestro segundo año nuevo juntos." },
 ];
-
 const customIcon = (emoji) => L.divIcon({
   html: `<div style="background:white;border:3px solid #c97d7d;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:2px 4px 12px rgba(44,31,20,0.25);cursor:pointer;">${emoji}</div>`,
-  iconSize: [40, 40], iconAnchor: [20, 20], className: ''
+  iconSize: [40,40], iconAnchor: [20,20], className: ''
 });
-
 places.forEach(p => {
-  const marker = L.marker([p.lat, p.lng], { icon: customIcon(p.emoji) }).addTo(map);
-  marker.bindPopup(`<div style="font-family:'Lora',serif;min-width:180px;"><div style="font-family:'Playfair Display',serif;font-size:1rem;color:#6b4c35;font-weight:700;margin-bottom:4px;">${p.emoji} ${p.name}</div><div style="font-size:0.85rem;color:#5a3e2b;line-height:1.5;">${p.desc}</div></div>`, { maxWidth: 240 });
+  L.marker([p.lat, p.lng], { icon: customIcon(p.emoji) }).addTo(map)
+    .bindPopup(`<div style="font-family:'Lora',serif;min-width:180px;"><div style="font-family:'Playfair Display',serif;font-size:1rem;color:#6b4c35;font-weight:700;margin-bottom:4px;">${p.emoji} ${p.name}</div><div style="font-size:0.85rem;color:#5a3e2b;line-height:1.5;">${p.desc}</div></div>`, { maxWidth: 240 });
 });
-map.fitBounds(places.map(p => [p.lat, p.lng]), { padding: [40, 40] });
+map.fitBounds(places.map(p => [p.lat, p.lng]), { padding: [40,40] });
 
-// RAZONES
+// ── RAZONES ──
 const reasons = [
   { text: "Tu corazón", emoji: "💗", desc: "La forma en que cuidas a las personas que amas" },
   { text: "Tu personalidad", emoji: "✨", desc: "Única, irrepetible, completamente tuya" },
@@ -526,7 +629,6 @@ const reasons = [
   { text: "Tu dedicación", emoji: "💪", desc: "Cuando te propones algo, lo logras" },
   { text: "Que eres mía", emoji: "🤍", desc: "Y yo soy tuyo" },
 ];
-
 const grid = document.getElementById('reasonsGrid');
 reasons.forEach((r, i) => {
   const card = document.createElement('div');
@@ -536,7 +638,7 @@ reasons.forEach((r, i) => {
   grid.appendChild(card);
 });
 
-// ALBUM
+// ── ALBUM ──
 const polaroidGrid = document.getElementById('polaroidGrid');
 const albumPlaceholder = document.getElementById('albumPlaceholder');
 if (typeof PHOTOS !== 'undefined' && PHOTOS.length > 0) {
@@ -548,11 +650,9 @@ if (typeof PHOTOS !== 'undefined' && PHOTOS.length > 0) {
     p.querySelector('img').addEventListener('click', () => openLightbox(photo.url, photo.caption));
     polaroidGrid.appendChild(p);
   });
-} else {
-  polaroidGrid.style.display = 'none';
-}
+} else { polaroidGrid.style.display = 'none'; }
 
-// LIGHTBOX
+// ── LIGHTBOX ──
 function openLightbox(src, alt) {
   document.getElementById('lightbox-img').src = src;
   document.getElementById('lightbox-img').alt = alt;
@@ -561,19 +661,17 @@ function openLightbox(src, alt) {
 function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
 document.getElementById('lightbox').addEventListener('click', e => { if (e.target === e.currentTarget) closeLightbox(); });
 
-// CARTA
+// ── CARTA ──
 const letterContentEl = document.getElementById('letterContent');
 const letterDateEl = document.getElementById('letterDate');
 const letterSigEl = document.getElementById('letterSignature');
-
 if (typeof LETTER !== 'undefined' && LETTER.text) {
   letterDateEl.textContent = LETTER.date || '';
   letterSigEl.textContent = LETTER.signature || '';
   letterContentEl.innerHTML = '';
   let i = 0;
-  const text = LETTER.text;
   function typeWriter() {
-    if (i < text.length) { letterContentEl.innerHTML += text.charAt(i); i++; setTimeout(typeWriter, 28); }
+    if (i < LETTER.text.length) { letterContentEl.innerHTML += LETTER.text.charAt(i); i++; setTimeout(typeWriter, 28); }
   }
   const letterObserver = new IntersectionObserver(entries => {
     if (entries[0].isIntersecting) { typeWriter(); letterObserver.disconnect(); }
@@ -583,7 +681,7 @@ if (typeof LETTER !== 'undefined' && LETTER.text) {
   letterDateEl.textContent = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// RULETA
+// ── RULETA ──
 const plans = [
   { text: "Almuerzo en el Alaja", emoji: "🍽️" },
   { text: "Ir de Glamping", emoji: "⛺" },
@@ -601,53 +699,48 @@ const plans = [
   { text: "Escape Room", emoji: "🔐" },
   { text: "Spa Day en Casa", emoji: "🛁" },
 ];
-
 const canvas = document.getElementById('wheel-canvas');
 const ctx = canvas.getContext('2d');
 const W = 320, CX = W/2, CY = W/2, R = W/2 - 4;
 const colors = ['#f5e0e0','#ede5d4','#e8d5a0','#d4c5e2','#c8dfe0','#f0e6d8','#e0ddd8'];
 let currentAngle = 0, spinning = false;
-
 function drawWheel(angle) {
-  const n = plans.length, slice = (2 * Math.PI) / n;
-  ctx.clearRect(0, 0, W, W);
-  plans.forEach((plan, i) => {
-    const start = angle + i * slice, end = start + slice;
-    ctx.beginPath(); ctx.moveTo(CX, CY); ctx.arc(CX, CY, R, start, end); ctx.closePath();
-    ctx.fillStyle = colors[i % colors.length]; ctx.fill();
+  const n = plans.length, slice = (2*Math.PI)/n;
+  ctx.clearRect(0,0,W,W);
+  plans.forEach((plan,i) => {
+    const start = angle+i*slice, end = start+slice;
+    ctx.beginPath(); ctx.moveTo(CX,CY); ctx.arc(CX,CY,R,start,end); ctx.closePath();
+    ctx.fillStyle = colors[i%colors.length]; ctx.fill();
     ctx.strokeStyle = '#c4a862'; ctx.lineWidth = 1.5; ctx.stroke();
-    ctx.save(); ctx.translate(CX, CY); ctx.rotate(start + slice / 2);
-    ctx.textAlign = 'right'; ctx.fillStyle = '#2c1f14'; ctx.font = "bold 10px 'Lora', serif";
-    const label = plan.text.length > 14 ? plan.text.substring(0, 14) + '…' : plan.text;
-    ctx.fillText(label, R - 12, 4); ctx.restore();
+    ctx.save(); ctx.translate(CX,CY); ctx.rotate(start+slice/2);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#2c1f14'; ctx.font = "bold 10px 'Lora',serif";
+    const label = plan.text.length > 14 ? plan.text.substring(0,14)+'…' : plan.text;
+    ctx.fillText(label, R-12, 4); ctx.restore();
   });
-  ctx.beginPath(); ctx.arc(CX, CY, 28, 0, 2 * Math.PI);
+  ctx.beginPath(); ctx.arc(CX,CY,28,0,2*Math.PI);
   ctx.fillStyle = 'white'; ctx.fill();
   ctx.strokeStyle = '#c97d7d'; ctx.lineWidth = 3; ctx.stroke();
-  ctx.font = "18px serif"; ctx.textAlign = 'center'; ctx.fillText('♥', CX, CY + 6);
+  ctx.font = "18px serif"; ctx.textAlign = 'center'; ctx.fillText('♥',CX,CY+6);
 }
-
 drawWheel(currentAngle);
-
 function spinWheel() {
   if (spinning) return;
   spinning = true;
   document.getElementById('spinBtn').disabled = true;
   document.getElementById('resultCard').classList.remove('show');
-  const totalRotation = (5 + Math.random() * 5) * 2 * Math.PI;
+  const totalRotation = (5+Math.random()*5)*2*Math.PI;
   const duration = 4000, start = performance.now(), startAngle = currentAngle;
   function animate(now) {
-    const elapsed = now - start, t = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 4);
-    currentAngle = startAngle + totalRotation * eased;
+    const elapsed = now-start, t = Math.min(elapsed/duration,1);
+    currentAngle = startAngle + totalRotation*(1-Math.pow(1-t,4));
     drawWheel(currentAngle);
     if (t < 1) { requestAnimationFrame(animate); }
     else {
       spinning = false;
       document.getElementById('spinBtn').disabled = false;
-      const n = plans.length, slice = (2 * Math.PI) / n;
-      const normalized = ((-currentAngle) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI);
-      const idx = Math.floor(normalized / slice) % n;
+      const n = plans.length, slice = (2*Math.PI)/n;
+      const normalized = ((-currentAngle)%(2*Math.PI)+2*Math.PI)%(2*Math.PI);
+      const idx = Math.floor(normalized/slice)%n;
       document.getElementById('resultEmoji').textContent = plans[idx].emoji;
       document.getElementById('resultText').textContent = plans[idx].text;
       document.getElementById('resultCard').classList.add('show');
@@ -655,6 +748,101 @@ function spinWheel() {
   }
   requestAnimationFrame(animate);
 }
+
+// ── TOAST ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── CITAS ──
+const meses = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+
+function renderCita(cita, prepend = false) {
+  const lista = document.getElementById('citasLista');
+  const fecha = cita.fecha ? new Date(cita.fecha + 'T12:00:00') : null;
+  const dia = fecha ? fecha.getDate() : '—';
+  const mes = fecha ? meses[fecha.getMonth()] : '';
+
+  const div = document.createElement('div');
+  div.className = 'cita-item' + (prepend ? ' nueva' : '');
+  div.innerHTML = `
+    <div class="cita-fecha-box">
+      <div class="dia">${dia}</div>
+      <div class="mes">${mes}</div>
+    </div>
+    <div class="cita-info">
+      <div class="cita-lugar">📍 ${cita.lugar || 'Sin lugar'}</div>
+      <div class="cita-desc">${cita.descripcion || ''}</div>
+      <div class="cita-quien">— ${cita.quien}</div>
+    </div>
+  `;
+
+  if (prepend) {
+    lista.insertBefore(div, lista.firstChild);
+  } else {
+    lista.appendChild(div);
+  }
+
+  setTimeout(() => div.classList.add('visible'), 50);
+}
+
+async function cargarCitas() {
+  const lista = document.getElementById('citasLista');
+  try {
+    const citas = await supabaseFetch('Citas?select=*&order=fecha.desc&order=created_at.desc');
+    lista.innerHTML = '';
+    if (!citas.length) {
+      lista.innerHTML = '<div class="citas-empty">Todavía no hay citas guardadas 🌸<br>¡Sean los primeros en agregar una!</div>';
+      return;
+    }
+    citas.forEach(c => renderCita(c));
+  } catch(e) {
+    lista.innerHTML = '<div class="citas-empty">Error cargando citas 😅<br>Intenta recargar la página</div>';
+  }
+}
+
+async function guardarCita() {
+  const fecha = document.getElementById('citaFecha').value;
+  const lugar = document.getElementById('citaLugar').value.trim();
+  const desc = document.getElementById('citaDesc').value.trim();
+  const quien = document.getElementById('citaQuien').value;
+
+  if (!fecha || !lugar) { showToast('Completa la fecha y el lugar 🙏'); return; }
+
+  const btn = document.getElementById('saveBtn');
+  btn.disabled = true;
+  btn.textContent = 'Guardando...';
+
+  try {
+    const [nueva] = await supabaseFetch('Citas', {
+      method: 'POST',
+      prefer: 'return=representation',
+      body: JSON.stringify({ fecha, lugar, descripcion: desc, quien })
+    });
+
+    const lista = document.getElementById('citasLista');
+    const empty = lista.querySelector('.citas-empty');
+    if (empty) empty.remove();
+
+    renderCita(nueva, true);
+
+    document.getElementById('citaFecha').value = '';
+    document.getElementById('citaLugar').value = '';
+    document.getElementById('citaDesc').value = '';
+
+    showToast('¡Cita guardada! 🤍');
+  } catch(e) {
+    showToast('Error al guardar, intenta de nuevo 😅');
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Guardar cita 🤍';
+}
+
+cargarCitas();
 </script>
 </body>
 </html>
