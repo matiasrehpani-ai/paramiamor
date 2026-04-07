@@ -214,7 +214,7 @@
     .result-card p { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--brown-light); }
 
     /* CITAS */
-    #citas { background: var(--cream-dark); }
+    #citas { background: var(--cream-dark); min-height: unset; padding-bottom: 80px; }
 
     .citas-wrap { max-width: 800px; margin: 0 auto; }
 
@@ -571,6 +571,14 @@
 <script src="photos.js"></script>
 <script src="letter.js"></script>
 <script>
+// Disable smooth scroll while typing in citas form
+['citaFecha','citaLugar','citaDesc','citaFoto','citaQuien'].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener('focus', () => document.documentElement.style.scrollBehavior = 'auto');
+  el.addEventListener('blur', () => document.documentElement.style.scrollBehavior = 'smooth');
+});
+
 // ── SUPABASE CONFIG ──
 const SUPABASE_URL = 'https://qmceomniedmemalqbwqq.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFtY2VvbW5pZWRtZW1hbHFid3FxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU1ODk1NzAsImV4cCI6MjA5MTE2NTU3MH0.xrZ3QCSPYmTCI74drrb3kWhwtBOWjzWh-nFcuWrKXJ8';
